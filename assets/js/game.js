@@ -12,6 +12,7 @@ var enemyAttack = 12;
 
 // Functions
 var fight = function(enemyName) { //FIGHT FUNCTION
+
     while (enemyHealth > 0 && playerHealth > 0){
     var promptFight = window.prompt ("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose.");
     if (promptFight === "skip" || promptFight === "SKIP")
@@ -20,7 +21,7 @@ var fight = function(enemyName) { //FIGHT FUNCTION
             if (confirmSkip) {
                 window.alert (playerName + " has decided to skip this fight!");
                 playerMoney = playerMoney -10;
-                console.log ("playerMoney",playerMoney)
+                console.log ("playerMoney",playerMoney);
                 break;
             }
             else 
@@ -54,20 +55,50 @@ var fight = function(enemyName) { //FIGHT FUNCTION
             window.alert(playerName + " still has " + playerHealth + " health left!");
         }
     }
-    }
-    
+ }
 
-for (var i = 0; i < enemyNames.length; i++) {
+let startGame = function () {
+    playerHealth = 100;
+    playerAttack = 10;
+    playerMoney = 10;
+    
+    console.log (enemyHealth);
+    for (var i = 0; i < enemyNames.length; i++) {
+        if (playerHealth > 0) {
+            console.log (playerHealth);
+            window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+            var pickedEnemyName = enemyNames[i];
+            enemyHealth = 50;
+            fight(pickedEnemyName);
+        }
+        else {
+            window.alert("you have lost your robot in battle! Game Over!");
+            break;
+        }
+    }
+    //End game after loop
+    endGame();
+}
+
+let endGame = function () {
+
     if (playerHealth > 0) {
-        window.alert("Welcome to Robot Gladiators! Round " + (i+1));
-        var pickedEnemyName = enemyNames[i];
-        enemyHealth = 50;
-        fight(enemyNames[i]);
+        window.alert("Congrats bby, you survived the game! you have a score of " + playerMoney);
     }
     else
     {
-        window.alert ("you have lost your robot in battle! Game Over!");
-        break;
+        window.alert("You lost dude");
     }
-    
+    let playAgainConfirm = window.confirm("Would you like to play again?");
+    if (playAgainConfirm){
+        startGame();
+    }
+    else {
+        window.alert("TY for playing");
+    }
+
 }
+
+//start game when page loads
+
+startGame();
