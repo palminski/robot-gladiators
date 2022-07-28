@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 // Functions
 var fight = function(enemy) { //FIGHT FUNCTION
     console.log (enemy);
@@ -61,6 +54,7 @@ let startGame = function () {
         if (playerInfo.health > 0) {
             console.log (playerInfo.health);
             window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
+
             var pickedEnemyObj = enemyInfo[i];
             pickedEnemyObj.health = randomNumber(40,60);
             fight(pickedEnemyObj);
@@ -128,8 +122,18 @@ let randomNumber = function (min, max) {
     return value;
 }
 
+let getPlayerName = function() {
+    var name = "";
+    while (name === "" || name === null) {
+        name = prompt("what is your robot's name?");
+    }
+    console.log ("you robots name it "+ name);
+    return name;
+}
+
+
 var playerInfo = {
-    name : window.prompt("What is your Robot's name?"),
+    name : getPlayerName(),
     health : 100,
     attack : 10,
     money : 10,
