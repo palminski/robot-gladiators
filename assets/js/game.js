@@ -1,25 +1,36 @@
 
 // Functions
-var fight = function(enemy) { //FIGHT FUNCTION
-    console.log (enemy);
-    while (enemy.health > 0 && playerInfo.health > 0){
+let fightOrSkip = function() {
     var promptFight = window.prompt ("Would you like to FIGHT or SKIP this battle? Enter FIGHT or SKIP to choose.");
-    if (promptFight === "skip" || promptFight === "SKIP")
-    {
-        var confirmSkip = window.confirm("are you sure you would like to give up on this fight?");
-            if (confirmSkip) {
-                window.alert (playerInfo.name + " has decided to skip this fight!");
-                playerInfo.money = Math.max(0, playerInfo.money -10);
-                console.log ("playerInfo.money",playerInfo.money);
-                break;
-            }
-            else 
-            {
-                fight();
-            }
+    
+    if (promptFight === "" || promptFight === null) {
+        window.alert("you need to provide a valid response");
+        return fightOrSkip();
     }
-        var damage = randomNumber(playerInfo.attack-3,playerInfo.attack);
-        enemy.health = Math.max(0,enemy.health - damage);
+    
+    promptFight = promptFight.toLowerCase();
+    if (promptFight === "skip"){
+        var confirmSkip = window.confirm("are you sure you would like to give up on this fight?");
+        
+        
+        
+        if (confirmSkip) {
+            window.alert(playerInfo.name + " has decided to skip this fight!");
+            playerInfo.money = Math.max(0, playerInfo.money - 10);
+            return true;
+        }
+    }
+    return false;
+}
+
+var fight = function(enemy) { //FIGHT FUNCTION
+    console.log(enemy);
+    while (enemy.health > 0 && playerInfo.health > 0) {
+        if (fightOrSkip()) {
+            break;
+        }
+        var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+        enemy.health = Math.max(0, enemy.health - damage);
         console.log(
             playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + "now has " + enemy.health + " health remaining!"
         );
