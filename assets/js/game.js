@@ -99,14 +99,24 @@ let startGame = function () {
 }
 
 let endGame = function () {
+    var highScore = localStorage.getItem("highScore");
+    if (highScore === null) {
+        highScore = 0;
+    }
 
     if (playerInfo.health > 0) {
         window.alert("Congrats bby, you survived the game! you have a score of " + playerInfo.money);
+        if (playerInfo.money > highScore) {
+            window.alert ("WOW! you set a new high score! POGGERS!");
+            localStorage.setItem("highScore",playerInfo.money);
+            localStorage.setItem("name",playerInfo.name);
+        }
     }
     else
     {
         window.alert("You lost dude");
     }
+    window.alert("Current High Score is "+ (localStorage.getItem("name") + " With a score of " + highScore));
     let playAgainConfirm = window.confirm("Would you like to play again?");
     if (playAgainConfirm){
         startGame();
